@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Chord Progression Generator</string>
+    <string name="start_label">Start:</string>
+    <string name="end_label">End:</string>
+    <string name="scale_type_label">Type:</string>
+    <string name="length_label">Length:</string>
+    <string name="generate_button">generate</string>
+    <string name="action_save">Save</string>
+    <string name="invalid_length_input">Please input a length lower than 32</string>
+
+    <string-array name="chord_number_select">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="scale_type_select">
+        <item>Major</item>
+        <item>Minor</item>
+        <item>Free</item>
+    </string-array>
+</resources>
