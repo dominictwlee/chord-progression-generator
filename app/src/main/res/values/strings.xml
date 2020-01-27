@@ -10,6 +10,8 @@
     <string name="save_dialog_title">Save Chord Progression?</string>
     <string name="confirm_button">Confirm</string>
     <string name="cancel_button">Cancel</string>
+    <string name="name_label">Name</string>
+    <string name="description_label">Description</string>
 
     <string-array name="chord_number_select">
         <item>1</item>

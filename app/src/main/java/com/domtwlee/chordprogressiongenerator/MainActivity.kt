@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun confirmSave() {
+    private fun confirmSave() {
         val fragment = ConfirmSaveDialogFragment()
         fragment.show(supportFragmentManager, "confirmSave")
     }
