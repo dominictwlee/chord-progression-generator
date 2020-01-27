@@ -42,7 +42,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.menu_main, menu)
-        menu.getItem(0).isVisible = isSaveButtonVisible
+        val saveButton = menu.getItem(0)
+        saveButton.isVisible = isSaveButtonVisible
+        saveButton.setOnMenuItemClickListener {
+            confirmSave()
+            true
+        }
         return true
     }
 
@@ -101,6 +106,11 @@ class MainActivity : AppCompatActivity() {
         generateButton.setOnClickListener {
             onSubmit()
         }
+    }
+
+    fun confirmSave() {
+        val fragment = ConfirmSaveDialogFragment()
+        fragment.show(supportFragmentManager, "confirmSave")
     }
 
     private fun onSubmit() {

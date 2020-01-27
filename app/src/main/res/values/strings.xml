@@ -7,6 +7,9 @@
     <string name="generate_button">generate</string>
     <string name="action_save">Save</string>
     <string name="invalid_length_input">Please input a length lower than 32</string>
+    <string name="save_dialog_title">Save Chord Progression?</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="cancel_button">Cancel</string>
 
     <string-array name="chord_number_select">
         <item>1</item>
