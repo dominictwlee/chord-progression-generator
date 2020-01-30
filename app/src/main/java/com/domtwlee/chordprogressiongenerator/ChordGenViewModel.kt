@@ -3,9 +3,9 @@ package com.domtwlee.chordprogressiongenerator
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
-class ChordProgViewModel : ViewModel() {
+class ChordGenViewModel : ViewModel() {
 
-    private val chordProgParams = ChordProgParams()
+    private val chordProgParams = ChordGenParams()
     private val majorDegrees = listOf("I", "ii", "iii", "IV", "V", "vi", "viio")
     private val minorDegrees = listOf("i", "iio", "III", "iv", "V", "VI", "VII")
     private val scaleTypes = mapOf("major" to majorDegrees, "minor" to minorDegrees)

@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.AdapterView
 
 object ItemSelectedListener : AdapterView.OnItemSelectedListener {
-    lateinit var model: ChordProgViewModel
+    lateinit var model: ChordGenViewModel
     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
         val spinnerId = parent.id
         val selectedItem = parent.getItemAtPosition(position)

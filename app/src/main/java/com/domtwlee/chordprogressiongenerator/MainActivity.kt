@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var model: ChordProgViewModel
+    private lateinit var model: ChordGenViewModel
     private lateinit var startSpinner: Spinner
     private lateinit var endSpinner: Spinner
     private lateinit var typeSpinner: Spinner
@@ -22,15 +22,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var generateButton: Button
     private lateinit var chordProgressionDisplay: TextView
     private var isSaveButtonVisible = false
-    private lateinit var chordProgParams: ChordProgParams
+    private lateinit var chordGenParams: ChordGenParams
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ItemSelectedListener.model = ViewModelProviders.of(this)[ChordProgViewModel::class.java]
-        model = ViewModelProviders.of(this)[ChordProgViewModel::class.java]
-        chordProgParams = model.getChordProgParams()
-        chordProgParams.length
+        ItemSelectedListener.model = ViewModelProviders.of(this)[ChordGenViewModel::class.java]
+        model = ViewModelProviders.of(this)[ChordGenViewModel::class.java]
+        chordGenParams = model.getChordProgParams()
+        chordGenParams.length
         getSelectItems()
         initWidgets()
         setListeners()
@@ -84,9 +84,9 @@ class MainActivity : AppCompatActivity() {
                 if (!s.isNullOrBlank()) {
                     lengthEditText.background.clearColorFilter()
                     val userInputLength = s.toString().toInt()
-                    chordProgParams.length = userInputLength
+                    chordGenParams.length = userInputLength
                 } else {
-                    chordProgParams.length = 0
+                    chordGenParams.length = 0
                     lengthEditText.background.setColorFilter(
                         ContextCompat.getColor(applicationContext, R.color.colorAccent),
                         PorterDuff.Mode.SRC_IN)
