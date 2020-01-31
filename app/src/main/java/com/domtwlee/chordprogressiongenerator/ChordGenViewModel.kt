@@ -1,5 +1,6 @@
 package com.domtwlee.chordprogressiongenerator
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
@@ -9,7 +10,7 @@ class ChordGenViewModel : ViewModel() {
     private val majorDegrees = listOf("I", "ii", "iii", "IV", "V", "vi", "viio")
     private val minorDegrees = listOf("i", "iio", "III", "iv", "V", "VI", "VII")
     private val scaleTypes = mapOf("major" to majorDegrees, "minor" to minorDegrees)
-    private val chordProgression = mutableListOf<String>()
+    val chordProgression = mutableListOf<String>()
 
     fun getChordProgParams() = chordProgParams
 
@@ -31,7 +32,7 @@ class ChordGenViewModel : ViewModel() {
         if (chordProgression.isNotEmpty()) {
             chordProgression.clear()
         }
-
+//
         val (length, start, end, type) = chordProgParams
         val degrees: List<String>? = scaleTypes.getOrElse(type) { null }
         val bodyLength = length - 2
@@ -48,7 +49,7 @@ class ChordGenViewModel : ViewModel() {
             chordProgression.add(degrees[start - 1])
 
             for (i in 1..bodyLength) {
-                val (t, d) = randomize()
+                val (_, d) = randomize()
                 chordProgression.add(degrees[d])
             }
 

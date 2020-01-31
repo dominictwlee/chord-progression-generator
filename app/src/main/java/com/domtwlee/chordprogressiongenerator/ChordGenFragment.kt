@@ -15,10 +15,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 
 class ChordGenFragment : Fragment() {
-    private lateinit var model: ChordGenViewModel
+    private val model: ChordGenViewModel by activityViewModels()
     private lateinit var startSpinner: Spinner
     private lateinit var endSpinner: Spinner
     private lateinit var typeSpinner: Spinner
@@ -33,7 +34,6 @@ class ChordGenFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ItemSelectedListener.model = ViewModelProvider(this)[ChordGenViewModel::class.java]
-        model = ViewModelProvider(this)[ChordGenViewModel::class.java]
         chordGenParams = model.getChordProgParams()
         chordGenParams.length
         val note = Note("A")
@@ -77,7 +77,6 @@ class ChordGenFragment : Fragment() {
         endSpinner.setSelection(chordNumberItems.indexOf(chordProgParams.end.toString()))
         typeSpinner.setSelection(scaleTypeItems.indexOf(chordProgParams.type))
         lengthEditText.setText(chordProgParams.length.toString())
-        model.createChordProgression()
     }
 
     private fun getSelectItems() {
@@ -105,14 +104,7 @@ class ChordGenFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-//        chordProgressionDisplay.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(s: Editable?) {
-//                isSaveButtonVisible = !s.isNullOrBlank()
-//                invalidateOptionsMenu()
-//            }
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-//        })
+
         generateButton.setOnClickListener {
             onSubmit()
         }
