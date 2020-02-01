@@ -19,6 +19,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 
 class ChordGenFragment : Fragment() {
+    interface Callbacks {
+        fun onChordProgChanged(s: Editable?)
+    }
+    private var callbacks: Callbacks? = null
     private val model: ChordGenViewModel by activityViewModels()
     private lateinit var startSpinner: Spinner
     private lateinit var endSpinner: Spinner
@@ -29,7 +33,7 @@ class ChordGenFragment : Fragment() {
     private lateinit var generateButton: Button
     private lateinit var chordProgressionDisplay: TextView
     private lateinit var chordGenParams: ChordGenParams
-    private lateinit var appContext: Context
+    private var appContext: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +59,13 @@ class ChordGenFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         appContext = context
+        callbacks = context as Callbacks?
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        appContext = null
+        callbacks = null
     }
 
     override fun onStart() {
@@ -88,6 +99,17 @@ class ChordGenFragment : Fragment() {
         startSpinner.onItemSelectedListener = ItemSelectedListener
         endSpinner.onItemSelectedListener = ItemSelectedListener
         typeSpinner.onItemSelectedListener = ItemSelectedListener
+        chordProgressionDisplay.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                callbacks?.onChordProgChanged(s)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
         lengthEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!s.isNullOrBlank()) {
@@ -96,9 +118,12 @@ class ChordGenFragment : Fragment() {
                     chordGenParams.length = userInputLength
                 } else {
                     chordGenParams.length = 0
-                    lengthEditText.background.setColorFilter(
-                        ContextCompat.getColor(appContext, R.color.colorAccent),
-                        PorterDuff.Mode.SRC_IN)
+                    if (appContext != null) {
+                        lengthEditText.background.setColorFilter(
+                            ContextCompat.getColor(appContext as Context, R.color.colorAccent),
+                            PorterDuff.Mode.SRC_IN)
+                    }
+
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

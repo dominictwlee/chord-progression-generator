@@ -2,15 +2,17 @@ package com.domtwlee.chordprogressiongenerator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
     private lateinit var model: ChordGenViewModel
     private lateinit var chordGenParams: ChordGenParams
     private lateinit var chordProgression: MutableList<String>
+    private var isSaveButtonVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +32,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onChordProgChanged(s: Editable?) {
+        isSaveButtonVisible = !s.isNullOrEmpty()
+        invalidateOptionsMenu()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         Log.i("CHORD_PROG", chordProgression.isEmpty().toString())
 
         menuInflater.inflate(R.menu.menu_main, menu)
         val saveButton = menu.getItem(0)
+        saveButton.isVisible = isSaveButtonVisible
         saveButton.setOnMenuItemClickListener {
-            if (chordProgression.isEmpty()) {
-                Toast.makeText(this, "Nothing to save", Toast.LENGTH_SHORT).show()
-            } else {
-                confirmSave()
-            }
+            confirmSave()
             true
         }
         return true
