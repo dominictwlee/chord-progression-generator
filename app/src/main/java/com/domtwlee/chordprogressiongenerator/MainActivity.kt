@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.Menu
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
-            val fragment = ChordGenFragment()
+            val fragment = ChordProgListFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
@@ -38,8 +37,6 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        Log.i("CHORD_PROG", chordProgression.isEmpty().toString())
-
         menuInflater.inflate(R.menu.menu_main, menu)
         val saveButton = menu.getItem(0)
         saveButton.isVisible = isSaveButtonVisible
