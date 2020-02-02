@@ -63,13 +63,7 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgL
     }
 
     private fun confirmSave() {
-        val fragment = ChordProgListFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
-//        val fragment = ConfirmSaveDialogFragment()
-//        fragment.show(supportFragmentManager, "confirmSave")
+        val fragment = ConfirmSaveDialogFragment()
+        fragment.show(supportFragmentManager, "confirmSave")
     }
 }

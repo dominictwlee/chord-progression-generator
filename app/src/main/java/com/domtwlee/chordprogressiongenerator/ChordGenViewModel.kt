@@ -1,6 +1,5 @@
 package com.domtwlee.chordprogressiongenerator
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
