@@ -8,7 +8,8 @@ import android.view.Menu
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
-    private lateinit var model: ChordGenViewModel
+    private lateinit var chordGenModel: ChordGenViewModel
+    private lateinit var chordProgModel: ChordProgressionViewModel
     private lateinit var chordGenParams: ChordGenParams
     private lateinit var chordProgression: MutableList<String>
     private var isSaveButtonVisible = false
@@ -17,13 +18,14 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.main_toolbar))
-        model = ViewModelProvider(this)[ChordGenViewModel::class.java]
-        chordGenParams = model.getChordProgParams()
-        chordProgression = model.chordProgression
+        chordGenModel = ViewModelProvider(this)[ChordGenViewModel::class.java]
+        chordProgModel = ViewModelProvider(this)[ChordProgressionViewModel::class.java]
+        chordGenParams = chordGenModel.getChordProgParams()
+        chordProgression = chordGenModel.chordProgression
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
-            val fragment = ChordProgListFragment()
+            val fragment = ChordGenFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
@@ -48,7 +50,13 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
     }
 
     private fun confirmSave() {
-        val fragment = ConfirmSaveDialogFragment()
-        fragment.show(supportFragmentManager, "confirmSave")
+        val fragment = ChordProgListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+//        val fragment = ConfirmSaveDialogFragment()
+//        fragment.show(supportFragmentManager, "confirmSave")
     }
 }

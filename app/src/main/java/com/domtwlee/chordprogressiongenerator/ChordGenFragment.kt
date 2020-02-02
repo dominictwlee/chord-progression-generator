@@ -37,7 +37,7 @@ class ChordGenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ItemSelectedListener.model = ViewModelProvider(this)[ChordGenViewModel::class.java]
+        ItemSelectedListener.model = model
         chordGenParams = model.getChordProgParams()
         chordGenParams.length
         val note = Note("A")
