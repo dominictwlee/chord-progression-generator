@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.Menu
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
-class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
+private const val TAG = "MainActivity"
+
+class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgListFragment.Callbacks {
     private lateinit var chordGenModel: ChordGenViewModel
     private lateinit var chordProgModel: ChordProgressionViewModel
     private lateinit var chordGenParams: ChordGenParams
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
-            val fragment = ChordGenFragment()
+            val fragment = ChordProgListFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
@@ -36,6 +39,16 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks {
     override fun onChordProgChanged(s: Editable?) {
         isSaveButtonVisible = !s.isNullOrEmpty()
         invalidateOptionsMenu()
+    }
+
+    override fun onAddButtonPress() {
+        val fragment = ChordGenFragment()
+        Log.d(TAG, "ON BUTTON PRESS")
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -7,19 +7,19 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/chord_prog_name"
+        android:id="@+id/chordProgName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Some cool chords" />
 
     <TextView
-        android:id="@+id/chord_prog_description"
+        android:id="@+id/chordProgDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Some chords that are cool" />
 
     <TextView
-        android:id="@+id/chord_prog"
+        android:id="@+id/chordProg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="I IV V I" />

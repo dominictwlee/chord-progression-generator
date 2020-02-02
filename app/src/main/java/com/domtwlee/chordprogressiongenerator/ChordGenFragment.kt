@@ -19,6 +19,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 
 class ChordGenFragment : Fragment() {
+
     interface Callbacks {
         fun onChordProgChanged(s: Editable?)
     }
