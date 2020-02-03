@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgListFragment.Callbacks {
+class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgListFragment.Callbacks, ConfirmSaveDialogFragment.Callbacks {
     private lateinit var chordGenModel: ChordGenViewModel
     private lateinit var chordProgModel: ChordProgressionViewModel
     private lateinit var chordGenParams: ChordGenParams
@@ -39,6 +39,17 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgL
     override fun onChordProgChanged(s: Editable?) {
         isSaveButtonVisible = !s.isNullOrEmpty()
         invalidateOptionsMenu()
+    }
+
+    override fun onSubmitSave() {
+        isSaveButtonVisible = false
+        invalidateOptionsMenu()
+        val fragment = ChordProgListFragment()
+        Log.d(TAG, "ON BUTTON PRESS")
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     override fun onAddButtonPress() {

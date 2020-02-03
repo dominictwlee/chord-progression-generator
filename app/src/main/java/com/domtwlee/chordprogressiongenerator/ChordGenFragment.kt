@@ -23,6 +23,7 @@ class ChordGenFragment : Fragment() {
     interface Callbacks {
         fun onChordProgChanged(s: Editable?)
     }
+
     private var callbacks: Callbacks? = null
     private val model: ChordGenViewModel by activityViewModels()
     private lateinit var startSpinner: Spinner

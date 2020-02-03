@@ -31,7 +31,7 @@ class ChordGenViewModel : ViewModel() {
         if (chordProgression.isNotEmpty()) {
             chordProgression.clear()
         }
-//
+
         val (length, start, end, type) = chordProgParams
         val degrees: List<String>? = scaleTypes.getOrElse(type) { null }
         val bodyLength = length - 2
