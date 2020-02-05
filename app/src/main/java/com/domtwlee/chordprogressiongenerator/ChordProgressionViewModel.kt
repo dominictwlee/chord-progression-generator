@@ -22,4 +22,8 @@ class ChordProgressionViewModel(application: Application) : AndroidViewModel(app
     fun insert(chordProgression: ChordProgression) = viewModelScope.launch {
         repository.insert(chordProgression)
     }
+
+    fun remove(chordProgression: ChordProgression) = viewModelScope.launch {
+        repository.delete(chordProgression)
+    }
 }

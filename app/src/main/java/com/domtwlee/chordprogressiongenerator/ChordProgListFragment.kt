@@ -2,6 +2,7 @@ package com.domtwlee.chordprogressiongenerator
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.domtwlee.chordprogressiongenerator.database.ChordProgression
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.list_item_chord_prog.*
 
 private const val TAG = "ChordProgListFragment"
 
@@ -26,6 +29,7 @@ class ChordProgListFragment: Fragment() {
     private lateinit var chordProgRecyclerView: RecyclerView
     private lateinit var adapter: ChordProgAdapter
     private lateinit var addButton: FloatingActionButton
+    private lateinit var itemtouch: ItemTouchHelper
     private val chordProgressionViewModel: ChordProgressionViewModel by lazy {
         ViewModelProvider(this).get(ChordProgressionViewModel::class.java)
     }
@@ -68,6 +72,7 @@ class ChordProgListFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
+        setItemTouchListener()
         addButton.setOnClickListener {
             callbacks?.onAddButtonPress()
         }
@@ -103,6 +108,36 @@ class ChordProgListFragment: Fragment() {
         val nameTextView: TextView = view.findViewById(R.id.chordProgName)
         val descriptionTextView: TextView = view.findViewById(R.id.chordProgDescription)
         val chords: TextView = view.findViewById(R.id.chordProg)
+    }
+
+    private fun setItemTouchListener() {
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val chordProgressionList = chordProgressionViewModel.chordProgressionList.value
+
+                val chordProgression = chordProgressionList?.elementAt(position)
+
+                Log.d(TAG, chordProgression.toString())
+
+                if (chordProgression != null) {
+                    chordProgressionViewModel.remove(chordProgression)
+                }
+
+                chordProgRecyclerView.adapter!!.notifyItemRemoved(position)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(chordProgRecyclerView)
     }
 
     companion object {
