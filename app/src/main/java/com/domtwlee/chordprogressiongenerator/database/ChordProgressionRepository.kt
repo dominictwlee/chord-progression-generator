@@ -8,4 +8,8 @@ class ChordProgressionRepository(private val chordProgressionDao: ChordProgressi
     suspend fun insert(chordProgression: ChordProgression) {
         chordProgressionDao.insert(chordProgression)
     }
+
+    suspend fun delete() {
+        chordProgressionDao.deleteAll()
+    }
 }

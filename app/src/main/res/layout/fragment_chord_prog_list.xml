@@ -19,7 +19,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#F50057"
+        android:backgroundTint="@color/colorAccent"
         android:clickable="true"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 </RelativeLayout>

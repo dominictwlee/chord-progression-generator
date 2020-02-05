@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgListFragment.Callbacks, ConfirmSaveDialogFragment.Callbacks {
+class MainActivity : AppCompatActivity(), ChordProgListFragment.Callbacks, ConfirmSaveDialogFragment.Callbacks {
     private lateinit var chordGenModel: ChordGenViewModel
     private lateinit var chordProgModel: ChordProgressionViewModel
     private lateinit var chordGenParams: ChordGenParams
@@ -36,11 +36,6 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgL
         }
     }
 
-    override fun onChordProgChanged(s: Editable?) {
-        isSaveButtonVisible = !s.isNullOrEmpty()
-        invalidateOptionsMenu()
-    }
-
     override fun onSubmitSave() {
         isSaveButtonVisible = false
         invalidateOptionsMenu()
@@ -62,19 +57,15 @@ class MainActivity : AppCompatActivity(), ChordGenFragment.Callbacks, ChordProgL
             .commit()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        val saveButton = menu.getItem(0)
-        saveButton.isVisible = isSaveButtonVisible
-        saveButton.setOnMenuItemClickListener {
-            confirmSave()
-            true
-        }
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.menu_main, menu)
+//        val saveButton = menu.getItem(0)
+//        saveButton.isVisible = isSaveButtonVisible
+//        saveButton.setOnMenuItemClickListener {
+//            confirmSave()
+//            true
+//        }
+//        return true
+//    }
 
-    private fun confirmSave() {
-        val fragment = ConfirmSaveDialogFragment()
-        fragment.show(supportFragmentManager, "confirmSave")
-    }
 }
