@@ -1,4 +1,4 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordProg
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

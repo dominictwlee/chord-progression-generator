@@ -1,4 +1,4 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordGen
 
 import android.content.Context
 import android.graphics.PorterDuff
@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import com.domtwlee.chordprogressiongenerator.*
 
 class ChordGenFragment : Fragment() {
     private val model: ChordGenViewModel by activityViewModels()
@@ -95,9 +95,12 @@ class ChordGenFragment : Fragment() {
     }
 
     private fun setListeners() {
-        startSpinner.onItemSelectedListener = ItemSelectedListener
-        endSpinner.onItemSelectedListener = ItemSelectedListener
-        typeSpinner.onItemSelectedListener = ItemSelectedListener
+        startSpinner.onItemSelectedListener =
+            ItemSelectedListener
+        endSpinner.onItemSelectedListener =
+            ItemSelectedListener
+        typeSpinner.onItemSelectedListener =
+            ItemSelectedListener
         chordProgressionDisplay.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 setSaveButtonVisibility()
@@ -120,7 +123,9 @@ class ChordGenFragment : Fragment() {
                     chordGenParams.length = 0
                     if (appContext != null) {
                         lengthEditText.background.setColorFilter(
-                            ContextCompat.getColor(appContext as Context, R.color.colorAccent),
+                            ContextCompat.getColor(appContext as Context,
+                                R.color.colorAccent
+                            ),
                             PorterDuff.Mode.SRC_IN)
                     }
 
@@ -140,7 +145,8 @@ class ChordGenFragment : Fragment() {
     }
 
     private fun onSave() {
-        val fragment = ConfirmSaveDialogFragment()
+        val fragment =
+            ConfirmSaveDialogFragment()
         fragment.show(childFragmentManager, "startSave")
     }
 

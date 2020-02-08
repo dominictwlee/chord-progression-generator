@@ -1,7 +1,8 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordProg
 
 import android.content.Context
 import android.graphics.*
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.domtwlee.chordprogressiongenerator.R
 import com.domtwlee.chordprogressiongenerator.database.ChordProgression
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -29,7 +31,6 @@ class ChordProgListFragment: Fragment() {
     private lateinit var chordProgRecyclerView: RecyclerView
     private lateinit var adapter: ChordProgAdapter
     private lateinit var addButton: FloatingActionButton
-    private lateinit var itemtouch: ItemTouchHelper
     private val chordProgressionViewModel: ChordProgressionViewModel by lazy {
         ViewModelProvider(this).get(ChordProgressionViewModel::class.java)
     }
@@ -155,7 +156,12 @@ class ChordProgListFragment: Fragment() {
             ) {
                 if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                     val viewItem = viewHolder.itemView
-                    SwipeBackground.paintDrawCommandToStart(c, viewItem, R.drawable.ic_delete_forever, dX)
+                    SwipeBackground.paintDrawCommandToStart(
+                        c,
+                        viewItem,
+                        R.drawable.ic_delete_forever,
+                        dX
+                    )
                 }
                 super.onChildDraw(
                     c,

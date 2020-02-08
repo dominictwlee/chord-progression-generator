@@ -1,7 +1,8 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordGen
 
 import android.view.View
 import android.widget.AdapterView
+import com.domtwlee.chordprogressiongenerator.R
 
 object ItemSelectedListener : AdapterView.OnItemSelectedListener {
     lateinit var model: ChordGenViewModel

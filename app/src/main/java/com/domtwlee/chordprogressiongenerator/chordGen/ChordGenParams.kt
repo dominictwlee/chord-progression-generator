@@ -1,4 +1,4 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordGen
 
 data class ChordGenParams (
     var length: Int = 10,

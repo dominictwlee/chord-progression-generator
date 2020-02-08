@@ -2,11 +2,14 @@ package com.domtwlee.chordprogressiongenerator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
-import android.view.Menu
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.domtwlee.chordprogressiongenerator.chordGen.ChordGenFragment
+import com.domtwlee.chordprogressiongenerator.chordGen.ChordGenParams
+import com.domtwlee.chordprogressiongenerator.chordGen.ChordGenViewModel
+import com.domtwlee.chordprogressiongenerator.chordGen.ConfirmSaveDialogFragment
+import com.domtwlee.chordprogressiongenerator.chordProg.ChordProgListFragment
+import com.domtwlee.chordprogressiongenerator.chordProg.ChordProgressionViewModel
 
 private const val TAG = "MainActivity"
 
@@ -28,7 +31,8 @@ class MainActivity : AppCompatActivity(), ChordProgListFragment.Callbacks, Confi
 
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null) {
-            val fragment = ChordProgListFragment()
+            val fragment =
+                ChordProgListFragment()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_container, fragment)
@@ -39,7 +43,8 @@ class MainActivity : AppCompatActivity(), ChordProgListFragment.Callbacks, Confi
     override fun onSubmitSave() {
         isSaveButtonVisible = false
         invalidateOptionsMenu()
-        val fragment = ChordProgListFragment()
+        val fragment =
+            ChordProgListFragment()
         Log.d(TAG, "ON BUTTON PRESS")
         supportFragmentManager
             .beginTransaction()
@@ -48,7 +53,8 @@ class MainActivity : AppCompatActivity(), ChordProgListFragment.Callbacks, Confi
     }
 
     override fun onAddButtonPress() {
-        val fragment = ChordGenFragment()
+        val fragment =
+            ChordGenFragment()
         Log.d(TAG, "ON BUTTON PRESS")
         supportFragmentManager
             .beginTransaction()

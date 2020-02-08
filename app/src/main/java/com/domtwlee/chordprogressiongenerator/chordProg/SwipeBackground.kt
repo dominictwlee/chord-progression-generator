@@ -1,10 +1,11 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordProg
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.domtwlee.chordprogressiongenerator.R
 import kotlin.math.abs
 
 object SwipeBackground {
@@ -18,8 +19,20 @@ object SwipeBackground {
     }
 
     fun paintDrawCommandToStart(canvas: Canvas, viewItem: View, iconResId: Int, dX: Float) {
-        val drawCommand = createDrawCommand(viewItem, dX, iconResId)
-        drawCommand?.let { paintDrawCommand(it, canvas, dX, viewItem) }
+        val drawCommand =
+            createDrawCommand(
+                viewItem,
+                dX,
+                iconResId
+            )
+        drawCommand?.let {
+            paintDrawCommand(
+                it,
+                canvas,
+                dX,
+                viewItem
+            )
+        }
     }
 
     private fun createDrawCommand(viewItem: View, dX: Float, iconResId: Int): DrawCommand? {
@@ -29,21 +42,35 @@ object SwipeBackground {
         if (icon != null) {
             icon = DrawableCompat.wrap(icon).mutate()
             icon.colorFilter = PorterDuffColorFilter(
-                ContextCompat.getColor(context, R.color.colorPaper),
+                ContextCompat.getColor(context,
+                    R.color.colorPaper
+                ),
                 PorterDuff.Mode.SRC_IN)
         }
 
-        val backgroundColor = getBackgroundColor(R.color.colorAccent, R.color.colorShadowGrey, dX, viewItem)
+        val backgroundColor =
+            getBackgroundColor(
+                R.color.colorAccent,
+                R.color.colorShadowGrey,
+                dX,
+                viewItem
+            )
 
         if (icon != null) {
-            return DrawCommand(icon, backgroundColor)
+            return DrawCommand(
+                icon,
+                backgroundColor
+            )
         }
 
         return null
     }
 
     private fun getBackgroundColor(firstColor: Int, secondColor: Int, dX: Float, viewItem: View): Int {
-        return when (willActionBeTriggered(dX, viewItem.width)) {
+        return when (willActionBeTriggered(
+            dX,
+            viewItem.width
+        )) {
             true -> ContextCompat.getColor(viewItem.context, firstColor)
             false -> ContextCompat.getColor(viewItem.context, secondColor)
         }
@@ -54,20 +81,45 @@ object SwipeBackground {
     }
 
     private fun paintDrawCommand(drawCommand: DrawCommand, canvas: Canvas, dX: Float, viewItem: View) {
-        drawBackground(canvas, viewItem, dX, drawCommand.backgroundColor)
-        drawIcon(canvas, viewItem, dX, drawCommand.icon)
+        drawBackground(
+            canvas,
+            viewItem,
+            dX,
+            drawCommand.backgroundColor
+        )
+        drawIcon(
+            canvas,
+            viewItem,
+            dX,
+            drawCommand.icon
+        )
     }
 
     private fun drawIcon(canvas: Canvas, viewItem: View, dX: Float, icon: Drawable) {
-        val topMargin = calculateTopMargin(icon, viewItem)
-        icon.bounds = getStartContainerRectangle(viewItem, icon.intrinsicWidth, topMargin, OFFSET_PX, dX)
+        val topMargin =
+            calculateTopMargin(
+                icon,
+                viewItem
+            )
+        icon.bounds =
+            getStartContainerRectangle(
+                viewItem,
+                icon.intrinsicWidth,
+                topMargin,
+                OFFSET_PX,
+                dX
+            )
         icon.draw(canvas)
     }
 
     private fun drawBackground(canvas: Canvas, viewItem: View, dX: Float, color: Int) {
         val backgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         backgroundPaint.color = color
-        val backgroundRectangle = getBackGroundRectangle(viewItem, dX)
+        val backgroundRectangle =
+            getBackGroundRectangle(
+                viewItem,
+                dX
+            )
         canvas.drawRect(backgroundRectangle, backgroundPaint)
     }
 

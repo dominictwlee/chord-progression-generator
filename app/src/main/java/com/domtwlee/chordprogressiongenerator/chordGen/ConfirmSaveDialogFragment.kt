@@ -1,4 +1,4 @@
-package com.domtwlee.chordprogressiongenerator
+package com.domtwlee.chordprogressiongenerator.chordGen
 
 import android.app.Dialog
 import android.content.Context
@@ -7,6 +7,8 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import com.domtwlee.chordprogressiongenerator.chordProg.ChordProgressionViewModel
+import com.domtwlee.chordprogressiongenerator.R
 import com.domtwlee.chordprogressiongenerator.database.ChordProgression
 
 private val TAG = "ConfirmSaveDialogFragment"
