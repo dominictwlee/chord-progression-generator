@@ -1,6 +1,7 @@
 package com.domtwlee.chordprogressiongenerator
 
 import android.content.Context
+import android.graphics.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.domtwlee.chordprogressiongenerator.database.ChordProgression
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.list_item_chord_prog.*
 
 private const val TAG = "ChordProgListFragment"
 
@@ -111,13 +111,22 @@ class ChordProgListFragment: Fragment() {
     }
 
     private fun setItemTouchListener() {
-        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
                 return false
+            }
+
+            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+                return 0.6f
+            }
+
+            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+                return defaultValue * 5
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -133,6 +142,30 @@ class ChordProgListFragment: Fragment() {
                 }
 
                 chordProgRecyclerView.adapter!!.notifyItemRemoved(position)
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    val viewItem = viewHolder.itemView
+                    SwipeBackground.paintDrawCommandToStart(c, viewItem, R.drawable.ic_delete_forever, dX)
+                }
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
             }
         }
 
