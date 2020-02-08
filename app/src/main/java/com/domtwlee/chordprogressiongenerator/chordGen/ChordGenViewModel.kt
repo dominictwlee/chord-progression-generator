@@ -1,15 +1,18 @@
 package com.domtwlee.chordprogressiongenerator.chordGen
 
 import androidx.lifecycle.ViewModel
+import java.util.*
 import kotlin.random.Random
 
 class ChordGenViewModel : ViewModel() {
 
     private val chordProgParams =
         ChordGenParams()
+    private val romanNumerals = listOf("I", "II", "III", "IV", "V", "VI", "VII")
     private val majorDegrees = listOf("I", "ii", "iii", "IV", "V", "vi", "viio")
     private val minorDegrees = listOf("i", "iio", "III", "iv", "V", "VI", "VII")
     private val scaleTypes = mapOf("major" to majorDegrees, "minor" to minorDegrees)
+    private val modifiers = listOf("min", "aug", "dim", "inv1st", "inv2nd", "7th", "9th")
     val chordProgression = mutableListOf<String>()
 
     fun getChordProgParams() = chordProgParams
@@ -17,15 +20,28 @@ class ChordGenViewModel : ViewModel() {
     fun getChordProg(): String = chordProgression.joinToString(" ")
 
     private fun randomize(): Pair<Int, Int> {
-        val randomType = Random.nextInt(2)
+        val randomModifier = Random.nextInt(7)
         val randomDegree = Random.nextInt(0, 6)
-        return Pair(randomType, randomDegree)
+        return Pair(randomModifier, randomDegree)
     }
 
     private fun addRandomChord(degree: Int? = null) {
         val (t, d) = randomize()
-        val actualDegree = degree ?: d
-        chordProgression.add(if (t == 0) minorDegrees[actualDegree] else majorDegrees[actualDegree])
+        val numDegree = degree ?: d
+        val romanDegree = romanNumerals[numDegree]
+
+        val chord = when (modifiers[t]) {
+            "min" -> romanDegree.toLowerCase(Locale.getDefault())
+            "aug" -> "$romanDegree+"
+            "dim" -> romanDegree + "o"
+            "inv1st" -> "$romanDegree/1"
+            "inv2nd" -> "$romanDegree/2"
+            "7th" -> romanDegree + "7"
+            "9th" -> romanDegree + "9"
+            else -> romanDegree
+        }
+
+        chordProgression.add(chord)
     }
 
     fun createChordProgression() {

@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), ChordProgListFragment.Callbacks, Confi
         invalidateOptionsMenu()
         val fragment =
             ChordProgListFragment()
-        Log.d(TAG, "ON BUTTON PRESS")
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -55,7 +54,6 @@ class MainActivity : AppCompatActivity(), ChordProgListFragment.Callbacks, Confi
     override fun onAddButtonPress() {
         val fragment =
             ChordGenFragment()
-        Log.d(TAG, "ON BUTTON PRESS")
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)
