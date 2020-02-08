@@ -10,7 +10,7 @@ import kotlin.math.abs
 object SwipeBackground {
     private class DrawCommand internal constructor(val icon: Drawable, val backgroundColor: Int)
 
-    private const val THRESHOLD = 2.5
+    private const val THRESHOLD = 1.8
     private const val OFFSET_PX = 20
 
     private fun calculateTopMargin(icon: Drawable, viewItem: View): Int {
