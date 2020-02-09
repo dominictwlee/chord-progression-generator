@@ -1,8 +1,12 @@
 package com.domtwlee.chordprogressiongenerator.chordGen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.domtwlee.chordprogressiongenerator.R
 import java.util.*
 import kotlin.random.Random
+
+private const val TAG = "ChordGenViewModel"
 
 class ChordGenViewModel : ViewModel() {
 
@@ -13,6 +17,23 @@ class ChordGenViewModel : ViewModel() {
     private val minorDegrees = listOf("i", "iio", "III", "iv", "V", "VI", "VII")
     private val scaleTypes = mapOf("major" to majorDegrees, "minor" to minorDegrees)
     private val modifiers = listOf("min", "aug", "dim", "inv1st", "inv2nd", "7th", "9th")
+
+    val sounds = mapOf(
+        "I" to R.raw.c7_chord,
+        "i" to R.raw.cm7_chord,
+        "II" to R.raw.d7_chord,
+        "ii" to R.raw.dm7_chord,
+        "iio" to R.raw.dm7_chord,
+        "III" to R.raw.e7_chord,
+        "iii" to R.raw.em7_chord,
+        "IV" to R.raw.f7_chord,
+        "iv" to R.raw.fm7_chord,
+        "V" to R.raw.g7_chord,
+        "VI" to R.raw.a7_chord,
+        "vi" to R.raw.am7_chord,
+        "VII" to R.raw.b7_chord,
+        "viio" to R.raw.bm7_chord)
+
     val chordProgression = mutableListOf<String>()
 
     fun getChordProgParams() = chordProgParams
