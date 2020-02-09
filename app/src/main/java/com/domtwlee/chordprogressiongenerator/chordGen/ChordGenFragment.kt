@@ -33,6 +33,7 @@ class ChordGenFragment : Fragment() {
     private lateinit var chordProgressionDisplay: TextView
     private lateinit var chordGenParams: ChordGenParams
     private lateinit var saveButton: ImageButton
+    private lateinit var playButton: ImageButton
     private var audioAttributes = AudioAttributes.Builder()
         .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
         .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
@@ -84,6 +85,7 @@ class ChordGenFragment : Fragment() {
         generateButton = view.findViewById(R.id.generateButton)
         chordProgressionDisplay = view.findViewById(R.id.chordProgressionDisplay)
         saveButton = view.findViewById(R.id.saveButton)
+        playButton = view.findViewById(R.id.playButton)
         setSaveButtonVisibility()
     }
 
@@ -105,12 +107,9 @@ class ChordGenFragment : Fragment() {
     }
 
     private fun setListeners() {
-        startSpinner.onItemSelectedListener =
-            ItemSelectedListener
-        endSpinner.onItemSelectedListener =
-            ItemSelectedListener
-        typeSpinner.onItemSelectedListener =
-            ItemSelectedListener
+        startSpinner.onItemSelectedListener = ItemSelectedListener
+        endSpinner.onItemSelectedListener = ItemSelectedListener
+        typeSpinner.onItemSelectedListener = ItemSelectedListener
         chordProgressionDisplay.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 setSaveButtonVisibility()
@@ -146,7 +145,7 @@ class ChordGenFragment : Fragment() {
             onSubmit()
         }
 
-        saveButton.setOnClickListener {
+        playButton.setOnClickListener {
             val chordProgression = model.chordProgression
             chordProgression.forEachIndexed { index, chord ->
 
@@ -156,8 +155,8 @@ class ChordGenFragment : Fragment() {
                     0 -> {
                         playSound(soundId)
                     }
-                    chordProgression.lastIndex -> {
 
+                    chordProgression.lastIndex -> {
                         val prevChord = chordProgression[index - 1]
                         val prevSoundId = soundIds[prevChord]
                         val delay = 3000 * index
@@ -175,8 +174,8 @@ class ChordGenFragment : Fragment() {
                             }
                         }, (delay + 3000).toLong())
                     }
-                    else -> {
 
+                    else -> {
                         val prevChord = chordProgression[index - 1]
                         val prevSoundId = soundIds[prevChord]
                         val delay = 3000 * index
@@ -190,8 +189,9 @@ class ChordGenFragment : Fragment() {
                     }
                 }
             }
+        }
 
-
+        saveButton.setOnClickListener {
             onSave()
         }
     }

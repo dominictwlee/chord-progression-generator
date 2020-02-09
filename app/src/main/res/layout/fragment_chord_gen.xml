@@ -141,6 +141,20 @@
                 tools:text="I IV V I" />
 
             <ImageButton
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216dp"
+                android:backgroundTint="@color/colorPaper"
+                android:hapticFeedbackEnabled="false"
+                android:textAlignment="inherit"
+                app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/saveButton"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/ic_play_arrow_24dp" />
+
+            <ImageButton
                 android:id="@+id/saveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
